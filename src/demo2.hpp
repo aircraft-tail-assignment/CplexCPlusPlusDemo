@@ -1,0 +1,86 @@
+//
+// Created by Administrator on 2022/10/3.
+//
+
+#ifndef DEMO_DEMO2_HPP
+#define DEMO_DEMO2_HPP
+
+#include <iostream>
+#include <sstream>
+#include <ilcplex/ilocplex.h>
+
+using namespace std;
+
+int demo2() {
+    // cplex environment, declare only once time, release it at the end of program.
+    IloEnv env;
+    // cplex model
+    IloModel model(env);
+    // decision variables
+    IloNumVarArray x(env);
+    int size = 2;
+    // variables x0 x1
+    for (int i = 0; i < size; i++) {
+        stringstream name;
+        name << "x(" << i << ")";
+        x.add(IloBoolVar(env, 0, 1, name.str().c_str()));
+    }
+    // constraints
+    // x0 + x1 <= 1
+    IloExpr constraint1(env);
+    constraint1 += x[0];
+    constraint1 += x[1];
+    model.add(constraint1 <= 1);
+
+    // x0 - x1 >= 1
+    IloExpr constraint2(env);
+    constraint2 += x[0];
+    constraint2 += -x[1];
+    model.add(constraint2 >= 0);
+
+    // function objective
+    // max 2*x0+3*x1
+    IloExpr obj(env);
+    for (int i = 0; i < size; i++) {
+        obj += (i + 2) * x[i];
+    }
+    model.add(IloMaximize(env, obj));
+
+    //define a solver for the constructed model.
+    IloCplex solver(model);
+
+    // set the output as stdout
+    solver.setOut(std::cout);
+
+    // use one single thread.
+    solver.setParam(IloCplex::Threads, 1);
+
+    // now , solve the model
+    solver.solve();
+
+    // export the model.
+    solver.exportModel("model.lp");
+
+    // export the solution.
+    solver.writeSolution("sol.sl");
+
+    // get the function objective value.
+    double objective_value = solver.getObjValue();
+
+    //get the decision variables values.
+    IloNumArray value_variables(env);
+    solver.getValues(value_variables, x);
+
+    //release all the allocated resources
+    model.end();
+    solver.end();
+    obj.end();
+
+    env.out() << "Result: " << objective_value << endl;
+    env.end();
+    return 0;
+}
+
+
+
+#endif //DEMO_DEMO2_HPP

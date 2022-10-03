@@ -57,6 +57,6 @@ file(GLOB HEADER_FILES include/*.h)
 file(GLOB SOURCE_FILES src/*.cpp)
 
 ######## Set executable file name, and add the source files for it.
-add_executable(${MY_PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+add_executable(${MY_PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES} src/demo1.hpp src/demo2.hpp)
 ######## Add Dependency Library
 target_link_libraries(${MY_PROJECT_NAME} cplex-library cplex-concert ilocplex cplex-cp)

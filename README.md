@@ -16,3 +16,9 @@ a simple demo of using cplex callable library for C/C++.
 # CMakeLists File
 ## Path: CMakeLists.txt
 >> For a simple use, you can just modify the project name
+
+
+1. 下载安装 IBM cplex
+2. 下载安装clion
+3. 按照readme.md中的图片配置clion
+4. 运行成功！

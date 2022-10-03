@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CplexCPlusPlusDemo.iml" filepath="$PROJECT_DIR$/.idea/CplexCPlusPlusDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CplexC++Demo/.idea/CplexDemo.iml" filepath="$PROJECT_DIR$/../CplexC++Demo/.idea/CplexDemo.iml" />
     </modules>
   </component>
